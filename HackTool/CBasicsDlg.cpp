@@ -39,8 +39,19 @@ END_MESSAGE_MAP()
 void CBasicsDlg::OnBnClickedButton1()
 {
 	// TODO: 在此添加控件通知处理程序代码
-
-	CloseHandle(g_hMutex);	//关闭互斥体对象
 	
-
+	static BOOL BnClick = TRUE;	//防多开被点击次数为奇数时为FALSE,
+								//为偶数时为TRUE
+	if (BnClick)
+	{
+		CloseHandle(g_hMutex);	//关闭互斥体对象
+		BnClick = FALSE;
+	}
+	else
+	{
+		//创建互斥体
+		g_hMutex = CreateMutex(NULL, FALSE, _T("HackTool"));
+		BnClick = TRUE;
+	}
+	
 }
