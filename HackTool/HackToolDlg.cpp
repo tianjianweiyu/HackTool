@@ -7,10 +7,13 @@
 #include "HackTool.h"
 #include "HackToolDlg.h"
 #include "afxdialogex.h"
+#include "CBasicsDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
+
+HANDLE g_hMutex = NULL;			//保存防多开的互斥体对象的句柄
 
 
 // 用于应用程序“关于”菜单项的 CAboutDlg 对话框
@@ -65,6 +68,7 @@ BEGIN_MESSAGE_MAP(CHackToolDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_BN_CLICKED(IDC_BUTTON1, &CHackToolDlg::OnBnClickedButton1)
 END_MESSAGE_MAP()
 
 
@@ -101,7 +105,14 @@ BOOL CHackToolDlg::OnInitDialog()
 
 	// TODO: 在此添加额外的初始化代码
 
-	//这里开始写自己的代码
+	//默认使用互斥体防多开
+	g_hMutex = CreateMutex(NULL, FALSE, _T("HackTool"));
+
+	//如果创建互斥体失败或互斥体已经存在
+	if (g_hMutex == NULL || GetLastError() == ERROR_ALREADY_EXISTS)
+	{
+		exit(0);//正常退出
+	}
 
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
@@ -155,3 +166,13 @@ HCURSOR CHackToolDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+
+//单击基础技术按钮-弹出基础技术对话框
+void CHackToolDlg::OnBnClickedButton1()
+{
+	// TODO: 在此添加控件通知处理程序代码
+
+	CBasicsDlg MyBasicsDlg;		//创建窗口框架
+	MyBasicsDlg.DoModal();		//创建模态对话框窗口
+
+}

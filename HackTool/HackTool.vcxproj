@@ -187,6 +187,7 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CBasicsDlg.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="HackTool.h" />
     <ClInclude Include="HackToolDlg.h" />
@@ -195,6 +196,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CBasicsDlg.cpp" />
     <ClCompile Include="HackTool.cpp" />
     <ClCompile Include="HackToolDlg.cpp" />
     <ClCompile Include="pch.cpp">
