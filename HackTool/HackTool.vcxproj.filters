@@ -13,12 +13,18 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="基础技术">
+      <UniqueIdentifier>{fafec9be-1cbb-4706-abe1-8f9361736482}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="注入技术">
+      <UniqueIdentifier>{3fabd021-e85e-45fa-bfd6-0d6fbc694ec1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="主界面">
+      <UniqueIdentifier>{d85c972e-d5f7-4d68-8304-13154d4d5aba}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HackTool.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="HackToolDlg.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="framework.h">
@@ -34,21 +40,30 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="CBasicsDlg.h">
-      <Filter>头文件</Filter>
+      <Filter>基础技术</Filter>
+    </ClInclude>
+    <ClInclude Include="CInjectDlg.h">
+      <Filter>注入技术</Filter>
+    </ClInclude>
+    <ClInclude Include="HackToolDlg.h">
+      <Filter>主界面</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HackTool.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="HackToolDlg.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="pch.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="CBasicsDlg.cpp">
-      <Filter>源文件</Filter>
+      <Filter>基础技术</Filter>
+    </ClCompile>
+    <ClCompile Include="CInjectDlg.cpp">
+      <Filter>注入技术</Filter>
+    </ClCompile>
+    <ClCompile Include="HackToolDlg.cpp">
+      <Filter>主界面</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -60,6 +75,10 @@
     <None Include="res\HackTool.rc2">
       <Filter>资源文件</Filter>
     </None>
+    <None Include="res\myres1.bin">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="..\Release\MyHookDll.dll" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\HackTool.ico">

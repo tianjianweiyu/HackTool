@@ -8,6 +8,7 @@
 #include "HackToolDlg.h"
 #include "afxdialogex.h"
 #include "CBasicsDlg.h"
+#include "CInjectDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -69,6 +70,7 @@ BEGIN_MESSAGE_MAP(CHackToolDlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDC_BUTTON1, &CHackToolDlg::OnBnClickedButton1)
+	ON_BN_CLICKED(IDC_BUTTON2, &CHackToolDlg::OnBnClickedButton2)
 END_MESSAGE_MAP()
 
 
@@ -176,3 +178,14 @@ void CHackToolDlg::OnBnClickedButton1()
 	MyBasicsDlg.DoModal();		//创建模态对话框窗口
 
 }
+
+//单击注入技术按钮-弹出注入技术对话框
+void CHackToolDlg::OnBnClickedButton2()
+{
+	// TODO: 在此添加控件通知处理程序代码
+
+	CInjectDlg MyInjectDlg;		//创建窗口框架
+	MyInjectDlg.DoModal();		//创建模态对话框窗口
+}
+
+
