@@ -9,6 +9,7 @@
 #include "afxdialogex.h"
 #include "CBasicsDlg.h"
 #include "CInjectDlg.h"
+#include "CStartDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -71,6 +72,7 @@ BEGIN_MESSAGE_MAP(CHackToolDlg, CDialogEx)
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDC_BUTTON1, &CHackToolDlg::OnBnClickedButton1)
 	ON_BN_CLICKED(IDC_BUTTON2, &CHackToolDlg::OnBnClickedButton2)
+	ON_BN_CLICKED(IDC_BUTTON3, &CHackToolDlg::OnBnClickedButton3)
 END_MESSAGE_MAP()
 
 
@@ -189,3 +191,11 @@ void CHackToolDlg::OnBnClickedButton2()
 }
 
 
+
+//单击启动技术按钮-弹出启动技术对话框
+void CHackToolDlg::OnBnClickedButton3()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	CStartDlg MyStartDlg;		//创建窗口框架
+	MyStartDlg.DoModal();		//创建模态对话框窗口
+}

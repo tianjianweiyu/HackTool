@@ -48,6 +48,9 @@
     <ClInclude Include="HackToolDlg.h">
       <Filter>主界面</Filter>
     </ClInclude>
+    <ClInclude Include="CStartDlg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HackTool.cpp">
@@ -64,6 +67,9 @@
     </ClCompile>
     <ClCompile Include="HackToolDlg.cpp">
       <Filter>主界面</Filter>
+    </ClCompile>
+    <ClCompile Include="CStartDlg.cpp">
+      <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -27,8 +27,6 @@ public:
 	CString m_FreeResTipMsg;			//释放资源操作过程中的提示
 	CString m_PreMulOpenTipMsg;			//防多开是否开启的提示
 
-	//释放资源
-
 	//************************************
 	// 函数名:  CBasicsDlg::FreeMyResource
 	// 返回类型:   BOOL
