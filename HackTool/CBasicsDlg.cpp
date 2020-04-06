@@ -72,6 +72,7 @@ void CBasicsDlg::OnBnClickedButton2()
 
 	//释放资源并以文件形式保存
 	FreeMyResource(IDR_MYRES2, (char*)L"MYRES", "MyHookDll");
+	FreeMyResource(IDR_MYRES3, (char*)L"MYRES", "RemoteThreadDll");
 
 	//更新提示信息并显示
 	m_Edit_Basic = m_PreMulOpenTipMsg + m_FreeResTipMsg;
@@ -83,7 +84,6 @@ BOOL CBasicsDlg::FreeMyResource(UINT uiResourceName, char* lpszResourceType, cha
 {
 	//获取指定模块里的资源
 	HRSRC hRsrc = FindResource(GetModuleHandle(NULL), MAKEINTRESOURCE(uiResourceName), (LPCWSTR)lpszResourceType);
-	DWORD error = GetLastError();
 	if (NULL == hRsrc)
 	{
 		m_FreeResTipMsg += _T("获取资源")+ CString(lpszSaveFileName)+_T("失败\r\n");

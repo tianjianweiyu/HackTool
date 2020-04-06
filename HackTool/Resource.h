@@ -9,9 +9,11 @@
 #define IDR_MAINFRAME                   128
 #define IDD_BASICS                      130
 #define IDD_DIALOG_INJECTION            132
-#define IDR_MYRES2                      135
 #define IDR_MYRES1                      136
 #define IDD_DIALOG_START                137
+#define IDR_MYRES3                      139
+#define IDR_MYRES2                      140
+#define IDR_MYRES4                      149
 #define IDC_BUTTON1                     1000
 #define IDC_BUTTON2                     1001
 #define IDC_EDIT_BASIC                  1002
@@ -23,14 +25,15 @@
 #define IDC_STATIC_DllPath              1009
 #define IDC_STATIC_ProcId               1010
 #define IDC_BUTTON3                     1011
+#define IDC_COMBO1                      1015
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        139
+#define _APS_NEXT_RESOURCE_VALUE        150
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1012
+#define _APS_NEXT_CONTROL_VALUE         1016
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

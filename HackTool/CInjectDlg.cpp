@@ -147,8 +147,6 @@ void CInjectDlg::OnDropFiles(HDROP hDropInfo)
 {
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
 
-	CDialogEx::OnDropFiles(hDropInfo);
-
 	//获取文件路径
 	TCHAR szPath[MAX_PATH] = { 0 };
 	DragQueryFile(hDropInfo, 0, szPath, MAX_PATH);

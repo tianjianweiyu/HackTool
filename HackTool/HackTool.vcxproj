@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -215,7 +215,12 @@
     <ResourceCompile Include="HackTool.rc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Release\calc.exe" />
     <None Include="..\Release\MyHookDll.dll" />
+    <None Include="..\Release\RemoteThreadDll.dll" />
+    <None Include="D:\Peid加强版\PEiD.exe" />
+    <None Include="D:\备份文件\1\Project1\Debug\Project1.exe" />
+    <None Include="D:\备份文件\1\Project1\Release\Project1.exe" />
     <None Include="res\HackTool.rc2" />
     <None Include="res\myres1.bin" />
   </ItemGroup>

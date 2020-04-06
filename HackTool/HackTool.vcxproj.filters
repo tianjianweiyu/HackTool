@@ -22,6 +22,9 @@
     <Filter Include="主界面">
       <UniqueIdentifier>{d85c972e-d5f7-4d68-8304-13154d4d5aba}</UniqueIdentifier>
     </Filter>
+    <Filter Include="启动技术">
+      <UniqueIdentifier>{1df62e96-606f-4b04-bb75-dfe93b16d7fc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HackTool.h">
@@ -49,7 +52,7 @@
       <Filter>主界面</Filter>
     </ClInclude>
     <ClInclude Include="CStartDlg.h">
-      <Filter>头文件</Filter>
+      <Filter>启动技术</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -69,7 +72,7 @@
       <Filter>主界面</Filter>
     </ClCompile>
     <ClCompile Include="CStartDlg.cpp">
-      <Filter>源文件</Filter>
+      <Filter>启动技术</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -85,6 +88,10 @@
       <Filter>资源文件</Filter>
     </None>
     <None Include="..\Release\MyHookDll.dll" />
+    <None Include="..\Release\RemoteThreadDll.dll" />
+    <None Include="..\Release\calc.exe" />
+    <None Include="D:\备份文件\1\Project1\Debug\Project1.exe" />
+    <None Include="D:\Peid加强版\PEiD.exe" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\HackTool.ico">
