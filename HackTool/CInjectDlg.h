@@ -56,7 +56,7 @@ public:
 	// 返回类型:   BOOL
 	// 功能: 远程线程注入Dll到目标进程(可以突破SESSION 0)
 	// 参数1: 目标进程的ID
-	// 参数1: DLL名
+	// 参数2: DLL名
 	//************************************
 	BOOL ZwCreateThreadExInjectDll(DWORD dwProcessId, char* pszDllFileName);
 
@@ -65,7 +65,7 @@ public:
 	// 返回类型:   BOOL
 	// 功能: APC注入
 	// 参数1: char * pszProcessName  目标进程名
-	// 参数1: char * pszDllFileName	 Dll名
+	// 参数2: char * pszDllFileName	 Dll名
 	//************************************
 	BOOL ApcInjectDll(char* pszProcessName, char* pszDllFileName);
 
@@ -82,8 +82,8 @@ public:
 	// 返回类型:   BOOL
 	// 功能: 根据PID获取所有相应的线程ID
 	// 参数1: DWORD dwProcessId 进程ID
-	// 参数1: DWORD * * ppThreadId	用于接收线程id数组
-	// 参数1: DWORD * pdwThreadIdLength	用于接收线程个数
+	// 参数2: DWORD * * ppThreadId	用于接收线程id数组
+	// 参数3: DWORD * pdwThreadIdLength	用于接收线程个数
 	//************************************
 	BOOL GetAllThreadIdByProcessId(DWORD dwProcessId, DWORD** ppThreadId, DWORD* pdwThreadIdLength);
 };

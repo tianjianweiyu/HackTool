@@ -25,6 +25,9 @@
     <Filter Include="启动技术">
       <UniqueIdentifier>{1df62e96-606f-4b04-bb75-dfe93b16d7fc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="自启动技术">
+      <UniqueIdentifier>{600c4e75-1e87-4045-b2a1-50875ff06633}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HackTool.h">
@@ -54,6 +57,12 @@
     <ClInclude Include="CStartDlg.h">
       <Filter>启动技术</Filter>
     </ClInclude>
+    <ClInclude Include="CStartSelfDlg.h">
+      <Filter>自启动技术</Filter>
+    </ClInclude>
+    <ClInclude Include="CMyTaskSchedule.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HackTool.cpp">
@@ -74,6 +83,12 @@
     <ClCompile Include="CStartDlg.cpp">
       <Filter>启动技术</Filter>
     </ClCompile>
+    <ClCompile Include="CStartSelfDlg.cpp">
+      <Filter>自启动技术</Filter>
+    </ClCompile>
+    <ClCompile Include="CMyTaskSchedule.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="HackTool.rc">
@@ -92,6 +107,7 @@
     <None Include="..\Release\calc.exe" />
     <None Include="D:\备份文件\1\Project1\Debug\Project1.exe" />
     <None Include="D:\Peid加强版\PEiD.exe" />
+    <None Include="D:\备份文件\1\Project1\Release\Project1.exe" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\HackTool.ico">

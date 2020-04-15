@@ -96,12 +96,6 @@ void CStartDlg::OnBnClickedButton1()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	UpdateData(TRUE);
-	//检测文件路径是否为空
-	if (m_Edit_FilePath == L"" || m_Edit_FilePath == L"请将文件拖拽到此处")
-	{
-		MessageBox(L"请先拖拽文件到窗口");
-		return;
-	}
 	//检测文件是否存
 	if (GetFileAttributes(m_Edit_FilePath) == INVALID_FILE_ATTRIBUTES)
 	{

@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MyHookDll", "MyHookDll\MyHo
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RemoteThreadDll", "RemoteThreadDll\RemoteThreadDll.vcxproj", "{67B1CB8D-DEBB-476A-BB9E-BC812496E74F}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ServiceTest", "ServiceTest\ServiceTest.vcxproj", "{E7C3ABA0-3369-4AA4-93B1-ED4A0AF10169}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -41,6 +43,14 @@ Global
 		{67B1CB8D-DEBB-476A-BB9E-BC812496E74F}.Release|x64.Build.0 = Release|x64
 		{67B1CB8D-DEBB-476A-BB9E-BC812496E74F}.Release|x86.ActiveCfg = Release|Win32
 		{67B1CB8D-DEBB-476A-BB9E-BC812496E74F}.Release|x86.Build.0 = Release|Win32
+		{E7C3ABA0-3369-4AA4-93B1-ED4A0AF10169}.Debug|x64.ActiveCfg = Debug|x64
+		{E7C3ABA0-3369-4AA4-93B1-ED4A0AF10169}.Debug|x64.Build.0 = Debug|x64
+		{E7C3ABA0-3369-4AA4-93B1-ED4A0AF10169}.Debug|x86.ActiveCfg = Debug|Win32
+		{E7C3ABA0-3369-4AA4-93B1-ED4A0AF10169}.Debug|x86.Build.0 = Debug|Win32
+		{E7C3ABA0-3369-4AA4-93B1-ED4A0AF10169}.Release|x64.ActiveCfg = Release|x64
+		{E7C3ABA0-3369-4AA4-93B1-ED4A0AF10169}.Release|x64.Build.0 = Release|x64
+		{E7C3ABA0-3369-4AA4-93B1-ED4A0AF10169}.Release|x86.ActiveCfg = Release|Win32
+		{E7C3ABA0-3369-4AA4-93B1-ED4A0AF10169}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

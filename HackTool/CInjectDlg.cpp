@@ -162,9 +162,7 @@ void CInjectDlg::OnDropFiles(HDROP hDropInfo)
 	else
 	{
 		MessageBox(L"请拖入有效的DLL文件");
-		//显示到控件上
-		m_Edit_DllName = _T("请拖入MyHookDll.dll");
-		UpdateData(FALSE);
+		OnBnClickedRadio1();
 	}
 
 	CDialogEx::OnDropFiles(hDropInfo);
@@ -188,7 +186,7 @@ void CInjectDlg::OnBnClickedRadio1()
 	}
 	case 1:
 	{
-		m_Edit_DllName = _T("请拖入RemThrDll.dll");
+		m_Edit_DllName = _T("请拖入RemoteThreadDll.dll");
 		m_Edit_ProcName = _T("请输入需要注入的进程ID");
 		//显示进程名/ID静态文本控件与编辑框控件
 		GetDlgItem(IDC_EDIT2)->ShowWindow(TRUE);
@@ -197,7 +195,7 @@ void CInjectDlg::OnBnClickedRadio1()
 	}
 	case 2:
 	{
-		m_Edit_DllName = _T("请拖入APCDll.dll");
+		m_Edit_DllName = _T("请拖入RemoteThreadDll.dll");
 		m_Edit_ProcName = _T("请输入需要注入的进程名");
 		//显示进程名/ID静态文本控件与编辑框控件
 		GetDlgItem(IDC_EDIT2)->ShowWindow(TRUE);

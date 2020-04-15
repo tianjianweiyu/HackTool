@@ -10,6 +10,7 @@
 #include "CBasicsDlg.h"
 #include "CInjectDlg.h"
 #include "CStartDlg.h"
+#include "CStartSelfDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -73,6 +74,7 @@ BEGIN_MESSAGE_MAP(CHackToolDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON1, &CHackToolDlg::OnBnClickedButton1)
 	ON_BN_CLICKED(IDC_BUTTON2, &CHackToolDlg::OnBnClickedButton2)
 	ON_BN_CLICKED(IDC_BUTTON3, &CHackToolDlg::OnBnClickedButton3)
+	ON_BN_CLICKED(IDC_BUTTON4, &CHackToolDlg::OnBnClickedButton4)
 END_MESSAGE_MAP()
 
 
@@ -198,4 +200,12 @@ void CHackToolDlg::OnBnClickedButton3()
 	// TODO: 在此添加控件通知处理程序代码
 	CStartDlg MyStartDlg;		//创建窗口框架
 	MyStartDlg.DoModal();		//创建模态对话框窗口
+}
+
+//单击自启动技术按钮-弹出自启动技术对话框
+void CHackToolDlg::OnBnClickedButton4()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	CStartSelfDlg MyStartSelfDlg;		//创建窗口框架
+	MyStartSelfDlg.DoModal();		//创建模态对话框窗口
 }
