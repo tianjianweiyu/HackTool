@@ -30,7 +30,6 @@ LRESULT CALLBACK GetMsgProc(int code, WPARAM wParam, LPARAM lParam)
 	//对钩子进行拦截
 	return CallNextHookEx(g_hHook, code, wParam, lParam);
 
-
 }
 
 extern "C" _declspec(dllexport)

@@ -49,10 +49,18 @@ void CStartSelfDlg::OnBnClickedButton1()
 {
 	// TODO: 在此添加控件通知处理程序代码
 
+	//检测是否为exe
+	LPTSTR pszExtension = PathFindExtension(m_Edit_FilePath);
+	if (lstrcmp(pszExtension, L".exe") != 0)
+	{
+		MessageBox(_T("请先拖拽有效的exe文件"));
+		return;
+	}
+
 	//检测文件是否存在
 	if (GetFileAttributes(m_Edit_FilePath) == INVALID_FILE_ATTRIBUTES)
 	{
-		MessageBox(L"文件不存在 请重试");
+		MessageBox(_T("文件不存在 请重试！"));
 		return;
 	}
 	
@@ -135,10 +143,18 @@ void CStartSelfDlg::OnBnClickedButton2()
 {
 	// TODO: 在此添加控件通知处理程序代码
 
+	//检测是否为exe
+	LPTSTR pszExtension = PathFindExtension(m_Edit_FilePath);
+	if (lstrcmp(pszExtension, L".exe") != 0)
+	{
+		MessageBox(_T("请先拖拽有效的exe文件"));
+		return;
+	}
+
 	//检测文件是否存在
 	if (GetFileAttributes(m_Edit_FilePath) == INVALID_FILE_ATTRIBUTES)
 	{
-		MessageBox(L"文件不存在 请重试");
+		MessageBox(_T("文件不存在 请重试！"));
 		return;
 	}
 
@@ -211,10 +227,18 @@ void CStartSelfDlg::OnBnClickedButton3()
 {
 	// TODO: 在此添加控件通知处理程序代码
 
+	//检测是否为exe
+	LPTSTR pszExtension = PathFindExtension(m_Edit_FilePath);
+	if (lstrcmp(pszExtension, L".exe") != 0)
+	{
+		MessageBox(_T("请先拖拽有效的exe文件"));
+		return;
+	}
+
 	//检测文件是否存在
 	if (GetFileAttributes(m_Edit_FilePath) == INVALID_FILE_ATTRIBUTES)
 	{
-		MessageBox(L"文件不存在 请重试");
+		MessageBox(_T("文件不存在 请重试！"));
 		return;
 	}
 
@@ -242,10 +266,18 @@ void CStartSelfDlg::OnBnClickedButton4()
 {
 	// TODO: 在此添加控件通知处理程序代码
 
+	//检测是否为exe
+	LPTSTR pszExtension = PathFindExtension(m_Edit_FilePath);
+	if (lstrcmp(pszExtension, L".exe") != 0)
+	{
+		MessageBox(_T("请先拖拽有效的exe文件"));
+		return;
+	}
+
 	//检测文件是否存在
 	if (GetFileAttributes(m_Edit_FilePath) == INVALID_FILE_ATTRIBUTES)
 	{
-		MessageBox(L"文件不存在 请重试");
+		MessageBox(_T("文件不存在 请重试！"));
 		return;
 	}
 

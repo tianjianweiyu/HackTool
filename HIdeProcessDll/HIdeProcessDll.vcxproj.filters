@@ -21,7 +21,7 @@
     <ClInclude Include="pch.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="CBypassUAC.h">
+    <ClInclude Include="CHideProcess.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -32,13 +32,8 @@
     <ClCompile Include="pch.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="CBypassUAC.cpp">
+    <ClCompile Include="CHideProcess.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Source.def">
-      <Filter>源文件</Filter>
-    </None>
   </ItemGroup>
 </Project>

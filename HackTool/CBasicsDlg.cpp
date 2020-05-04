@@ -71,8 +71,10 @@ void CBasicsDlg::OnBnClickedButton2()
 	// TODO: 在此添加控件通知处理程序代码
 
 	//释放资源并以文件形式保存
-	FreeMyResource(IDR_MYRES2, (char*)L"MYRES", "MyHookDll");
-	FreeMyResource(IDR_MYRES3, (char*)L"MYRES", "RemoteThreadDll");
+	FreeMyResource(IDR_MYRES2, (char*)L"MYRES", "MyHookDll.dll");		
+	FreeMyResource(IDR_MYRES3, (char*)L"MYRES", "RemoteThreadDll.dll");
+	FreeMyResource(IDR_MYRES4, (char*)L"MYRES", "HideProcessDll.dll");
+	FreeMyResource(IDR_MYRES5, (char*)L"MYRES", "HijackDll.dll");
 
 	//更新提示信息并显示
 	m_Edit_Basic = m_PreMulOpenTipMsg + m_FreeResTipMsg;

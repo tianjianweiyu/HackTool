@@ -11,6 +11,9 @@
 #include "CInjectDlg.h"
 #include "CStartDlg.h"
 #include "CStartSelfDlg.h"
+#include "CPrivilgeEscalationDlg.h"
+#include "CHideDlg.h"
+#include "CCondenseDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -75,6 +78,9 @@ BEGIN_MESSAGE_MAP(CHackToolDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON2, &CHackToolDlg::OnBnClickedButton2)
 	ON_BN_CLICKED(IDC_BUTTON3, &CHackToolDlg::OnBnClickedButton3)
 	ON_BN_CLICKED(IDC_BUTTON4, &CHackToolDlg::OnBnClickedButton4)
+	ON_BN_CLICKED(IDC_BUTTON5, &CHackToolDlg::OnBnClickedButton5)
+	ON_BN_CLICKED(IDC_BUTTON6, &CHackToolDlg::OnBnClickedButton6)
+	ON_BN_CLICKED(IDC_BUTTON7, &CHackToolDlg::OnBnClickedButton7)
 END_MESSAGE_MAP()
 
 
@@ -193,7 +199,6 @@ void CHackToolDlg::OnBnClickedButton2()
 }
 
 
-
 //单击启动技术按钮-弹出启动技术对话框
 void CHackToolDlg::OnBnClickedButton3()
 {
@@ -209,3 +214,28 @@ void CHackToolDlg::OnBnClickedButton4()
 	CStartSelfDlg MyStartSelfDlg;		//创建窗口框架
 	MyStartSelfDlg.DoModal();		//创建模态对话框窗口
 }
+
+//单击提权技术按钮-弹出提权技术对话框
+void CHackToolDlg::OnBnClickedButton5()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	CPrivilgeEscalationDlg MyPrivilgeEscalationDlg;		//创建窗口框架
+	MyPrivilgeEscalationDlg.DoModal();		//创建模态对话框窗口
+}
+
+//单击隐藏技术按钮-弹出隐藏技术对话框
+void CHackToolDlg::OnBnClickedButton6()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	CHideDlg MyHideDlg;	//创建窗口框架
+	MyHideDlg.DoModal();	//创建模态对话框窗口
+}
+
+//单击压缩技术按钮-弹出压缩技术对话框
+void CHackToolDlg::OnBnClickedButton7()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	CCondenseDlg MyCondenseDlg;	//创建窗口框架
+	MyCondenseDlg.DoModal();	//创建模态对话框窗口
+}
+

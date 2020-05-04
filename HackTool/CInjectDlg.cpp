@@ -54,10 +54,18 @@ void CInjectDlg::OnBnClickedButton1()
 {
 	// TODO: 在此添加控件通知处理程序代码
 
+	//检测是否为dll
+	LPTSTR pszExtension = PathFindExtension(m_Edit_DllName);
+	if (lstrcmp(pszExtension, L".dll") != 0)
+	{
+		MessageBox(_T("请先拖拽有效的dll文件"));
+		return;
+	}
+
 	//检测文件是否存在
 	if (GetFileAttributes(m_Edit_DllName) == INVALID_FILE_ATTRIBUTES)
 	{
-		MessageBox(L"文件不存在");
+		MessageBox(_T("文件不存在 请重试！"));
 		return;
 	}
 
@@ -112,7 +120,7 @@ void CInjectDlg::OnBnClickedButton1()
 		USES_CONVERSION;
 		char* pszDllFileName = T2A(m_Edit_DllName);
 		
-		//提升权限
+		//提升Debug权限
 		EnableDebugPrivilege(GetCurrentProcess(), (char*)SE_DEBUG_NAME);
 		//远程线程注入DLL
 		CreateRemoteThreadInjectDll(nPid, pszDllFileName);

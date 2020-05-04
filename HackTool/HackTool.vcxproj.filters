@@ -28,6 +28,15 @@
     <Filter Include="自启动技术">
       <UniqueIdentifier>{600c4e75-1e87-4045-b2a1-50875ff06633}</UniqueIdentifier>
     </Filter>
+    <Filter Include="计划任务">
+      <UniqueIdentifier>{90e59e29-5f2f-4e53-a147-b5376652d673}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="提权技术">
+      <UniqueIdentifier>{b2f80a26-7fe8-4c71-80ce-e988e5b4b82a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="隐藏技术">
+      <UniqueIdentifier>{c61911a7-20d3-4921-a7b7-16dc16b109aa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HackTool.h">
@@ -61,6 +70,15 @@
       <Filter>自启动技术</Filter>
     </ClInclude>
     <ClInclude Include="CMyTaskSchedule.h">
+      <Filter>计划任务</Filter>
+    </ClInclude>
+    <ClInclude Include="CPrivilgeEscalationDlg.h">
+      <Filter>提权技术</Filter>
+    </ClInclude>
+    <ClInclude Include="CHideDlg.h">
+      <Filter>隐藏技术</Filter>
+    </ClInclude>
+    <ClInclude Include="CCondenseDlg.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -87,6 +105,15 @@
       <Filter>自启动技术</Filter>
     </ClCompile>
     <ClCompile Include="CMyTaskSchedule.cpp">
+      <Filter>计划任务</Filter>
+    </ClCompile>
+    <ClCompile Include="CPrivilgeEscalationDlg.cpp">
+      <Filter>提权技术</Filter>
+    </ClCompile>
+    <ClCompile Include="CHideDlg.cpp">
+      <Filter>隐藏技术</Filter>
+    </ClCompile>
+    <ClCompile Include="CCondenseDlg.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -103,11 +130,9 @@
       <Filter>资源文件</Filter>
     </None>
     <None Include="..\Release\MyHookDll.dll" />
-    <None Include="..\Release\RemoteThreadDll.dll" />
-    <None Include="..\Release\calc.exe" />
-    <None Include="D:\备份文件\1\Project1\Debug\Project1.exe" />
-    <None Include="D:\Peid加强版\PEiD.exe" />
-    <None Include="D:\备份文件\1\Project1\Release\Project1.exe" />
+    <None Include="..\Debug\RemoteThreadDll.dll" />
+    <None Include="..\Debug\HIdeProcessDll.dll" />
+    <None Include="..\Release\HijackDll.dll" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\HackTool.ico">
