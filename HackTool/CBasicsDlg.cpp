@@ -75,6 +75,7 @@ void CBasicsDlg::OnBnClickedButton2()
 	FreeMyResource(IDR_MYRES3, (char*)L"MYRES", "RemoteThreadDll.dll");
 	FreeMyResource(IDR_MYRES4, (char*)L"MYRES", "HideProcessDll.dll");
 	FreeMyResource(IDR_MYRES5, (char*)L"MYRES", "HijackDll.dll");
+	FreeMyResource(IDR_MYRES7, (char*)L"MYRES", "ServiceTest.exe");
 
 	//更新提示信息并显示
 	m_Edit_Basic = m_PreMulOpenTipMsg + m_FreeResTipMsg;

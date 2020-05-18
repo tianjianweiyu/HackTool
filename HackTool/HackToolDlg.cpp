@@ -14,6 +14,9 @@
 #include "CPrivilgeEscalationDlg.h"
 #include "CHideDlg.h"
 #include "CCondenseDlg.h"
+#include "CEncryptionDlg.h"
+#include "CFunction.h"
+#include "CHelpDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -81,6 +84,10 @@ BEGIN_MESSAGE_MAP(CHackToolDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON5, &CHackToolDlg::OnBnClickedButton5)
 	ON_BN_CLICKED(IDC_BUTTON6, &CHackToolDlg::OnBnClickedButton6)
 	ON_BN_CLICKED(IDC_BUTTON7, &CHackToolDlg::OnBnClickedButton7)
+	ON_BN_CLICKED(IDC_BUTTON9, &CHackToolDlg::OnBnClickedButton9)
+	ON_BN_CLICKED(IDC_BUTTON10, &CHackToolDlg::OnBnClickedButton10)
+	ON_COMMAND(ID_32773, &CHackToolDlg::On32773)
+	ON_COMMAND(ID_32774, &CHackToolDlg::On32774)
 END_MESSAGE_MAP()
 
 
@@ -123,6 +130,7 @@ BOOL CHackToolDlg::OnInitDialog()
 	//如果创建互斥体失败或互斥体已经存在
 	if (g_hMutex == NULL || GetLastError() == ERROR_ALREADY_EXISTS)
 	{
+		MessageBox(_T("请勿双开本程序，即将退出"));
 		exit(0);//正常退出
 	}
 
@@ -239,3 +247,34 @@ void CHackToolDlg::OnBnClickedButton7()
 	MyCondenseDlg.DoModal();	//创建模态对话框窗口
 }
 
+//单击加密技术按钮-弹出加密技术对话框
+void CHackToolDlg::OnBnClickedButton9()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	CEncryptionDlg MyEncryptionDlg;	//创建窗口框架
+	MyEncryptionDlg.DoModal();	//创建模态对话框窗口
+}
+
+//单击功能技术按钮-弹出功能技术对话框
+void CHackToolDlg::OnBnClickedButton10()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	CFunction MyFunctionDlg;		//创建窗口框架
+	MyFunctionDlg.DoModal();	//创建模态对话框窗口
+}
+
+
+//菜单帮助按钮
+void CHackToolDlg::On32773()
+{
+	// TODO: 在此添加命令处理程序代码
+	CHelpDlg MyHelpDlh;		//创建窗口框架
+	MyHelpDlh.DoModal();	//创建模态对话框窗口
+}
+
+//菜单说明按钮
+void CHackToolDlg::On32774()
+{
+	// TODO: 在此添加命令处理程序代码
+	MessageBox(_T("Create By XiaoBai"));
+}

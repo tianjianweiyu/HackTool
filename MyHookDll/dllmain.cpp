@@ -3,7 +3,8 @@
 
 //共享内存
 #pragma data_seg("mydata")
-	HHOOK g_hHook;			//模块句柄
+	HHOOK g_hHook = NULL;	//必须赋初值，否则微软编译器会把没有初始化的数据放到普通的未初始化数据段中
+							//而不是放在shared中,从而导致多个进程之间的共享行为失败
 #pragma data_seg()
 #pragma comment(linker,"/SECTION:mydata,RWS")
 

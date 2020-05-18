@@ -116,11 +116,11 @@ public:
 
 	//************************************
 	// 函数名:  CStartDlg::LoadMyResource
-	// 返回类型:   HANDLE
+	// 返回类型:   LPVOID
 	// 功能: 加载资源到内存
 	// 参数1: UINT uiResourceName	资源名
 	// 参数1: char * lpszResourceType	资源类型
 	//************************************
-	HANDLE LoadMyResource(UINT uiResourceName, char* lpszResourceType);
+	LPVOID LoadMyResource(UINT uiResourceName, char* lpszResourceType);
 	CComboBox m_Combo_Start;
 };

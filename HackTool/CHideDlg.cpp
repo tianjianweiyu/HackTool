@@ -55,6 +55,8 @@ void CHideDlg::OnBnClickedButton1()
 {
 	// TODO: 在此添加控件通知处理程序代码
 
+	UpdateData(TRUE);
+
 	//检测是否为exe
 	LPTSTR pszExtension = PathFindExtension(m_Path);
 	if (lstrcmp(pszExtension, L".exe") != 0)
@@ -91,6 +93,8 @@ void CHideDlg::OnBnClickedButton1()
 void CHideDlg::OnBnClickedButton2()
 {
 	// TODO: 在此添加控件通知处理程序代码
+
+	UpdateData(TRUE);
 
 	// 弹窗 Shellcode
 	unsigned char data[624] = {
@@ -235,22 +239,20 @@ BOOL CHideDlg::DisguiseProcess(DWORD dwProcessId, wchar_t *lpwszPath)
 	}
 
 	// 获取指定进程基本信息结构中的PebBaseAddress
-	::ReadProcessMemory(hProcess, pbi.PebBaseAddress, &peb, sizeof(peb), NULL);
+	//::ReadProcessMemory(hProcess, pbi.PebBaseAddress, &peb, sizeof(peb), NULL);
 	// 获取指定进程环境块结构中的ProcessParameters, 注意指针指向的是指定进程空间
-	::ReadProcessMemory(hProcess, peb.ProcessParameters, &Param, sizeof(Param), NULL);
+	//::ReadProcessMemory(hProcess, peb.ProcessParameters, &Param, sizeof(Param), NULL);
 
 	// 修改指定PEB中的路径信息, 注意指针指向的是指定进程空间
 	usPathLen = 2 + 2 * ::wcslen(lpwszPath);
-	::WriteProcessMemory(hProcess, Param.ImagePathName.Buffer, lpwszPath, usPathLen, NULL);
-	::WriteProcessMemory(hProcess, &Param.ImagePathName.Length, &usPathLen, sizeof(usPathLen), NULL);
+	::WriteProcessMemory(hProcess, &pbi.PebBaseAddress->ProcessParameters->ImagePathName.Buffer, &lpwszPath, sizeof(PWSTR), NULL);
+	::WriteProcessMemory(hProcess, &pbi.PebBaseAddress->ProcessParameters->ImagePathName.Length, &usPathLen, sizeof(usPathLen), NULL);
+	::WriteProcessMemory(hProcess, &pbi.PebBaseAddress->ProcessParameters->ImagePathName.MaximumLength, &usPathLen, sizeof(usPathLen), NULL);
 
-	//通过路径获取文件名
-	PathStripPath(lpwszPath);
 	// 修改指定PEB中的命令行信息, 注意指针指向的是指定进程空间
-	//此时lpwszPath为文件名，不是路径了
-	usCmdLen = 2 + 2 * ::wcslen(lpwszPath);	
-	::WriteProcessMemory(hProcess, Param.CommandLine.Buffer, lpwszPath, usCmdLen, NULL);
-	::WriteProcessMemory(hProcess, &Param.CommandLine.Length, &usCmdLen, sizeof(usCmdLen), NULL);
+	//usCmdLen = 2 + 2 * ::wcslen(lpwszPath);	
+	::WriteProcessMemory(hProcess, &pbi.PebBaseAddress->ProcessParameters->CommandLine.Buffer, &lpwszPath,sizeof(PWSTR), NULL);
+	::WriteProcessMemory(hProcess, &pbi.PebBaseAddress->ProcessParameters->CommandLine.Length, &usPathLen, sizeof(usPathLen), NULL);
 
 
 	return TRUE;

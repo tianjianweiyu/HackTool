@@ -31,7 +31,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
-    <UseOfMfc>Dynamic</UseOfMfc>
+    <UseOfMfc>Static</UseOfMfc>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -46,7 +46,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
-    <UseOfMfc>Dynamic</UseOfMfc>
+    <UseOfMfc>Static</UseOfMfc>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -92,11 +92,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>ZLIB_WINAPI;WIN32;_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
+      <AdditionalOptions>/FORCE:MULTIPLE %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>
@@ -115,12 +117,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>ZLIB_WINAPI;_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
+      <AdditionalOptions>/FORCE:MULTIPLE %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>
@@ -141,13 +144,15 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>ZLIB_WINAPI;WIN32;_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalOptions>/SAFESEH:NO %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>
@@ -168,13 +173,15 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>ZLIB_WINAPI;_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalOptions>/SAFESEH:NO %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>
@@ -189,7 +196,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CBasicsDlg.h" />
+    <ClInclude Include="CCmdDlg.h" />
     <ClInclude Include="CCondenseDlg.h" />
+    <ClInclude Include="CDiscDlg.h" />
+    <ClInclude Include="CEncryptionDlg.h" />
+    <ClInclude Include="CEnumFileDlg.h" />
+    <ClInclude Include="CEnumProcessDlg.h" />
+    <ClInclude Include="CFileAttrDlg.h" />
+    <ClInclude Include="CFileMonitDlg.h" />
+    <ClInclude Include="CFunction.h" />
+    <ClInclude Include="CHelpDlg.h" />
     <ClInclude Include="CHideDlg.h" />
     <ClInclude Include="CInjectDlg.h" />
     <ClInclude Include="CMyTaskSchedule.h" />
@@ -202,10 +218,20 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="VirtualKeyToAscii.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CBasicsDlg.cpp" />
+    <ClCompile Include="CCmdDlg.cpp" />
     <ClCompile Include="CCondenseDlg.cpp" />
+    <ClCompile Include="CDiscDlg.cpp" />
+    <ClCompile Include="CEncryptionDlg.cpp" />
+    <ClCompile Include="CEnumFileDlg.cpp" />
+    <ClCompile Include="CEnumProcessDlg.cpp" />
+    <ClCompile Include="CFileAttrDlg.cpp" />
+    <ClCompile Include="CFileMonitDlg.cpp" />
+    <ClCompile Include="CFunction.cpp" />
+    <ClCompile Include="CHelpDlg.cpp" />
     <ClCompile Include="CHideDlg.cpp" />
     <ClCompile Include="CInjectDlg.cpp" />
     <ClCompile Include="CMyTaskSchedule.cpp" />
@@ -227,6 +253,8 @@
   <ItemGroup>
     <None Include="..\Debug\HIdeProcessDll.dll" />
     <None Include="..\Debug\RemoteThreadDll.dll" />
+    <None Include="..\Debug\ServiceTest.exe" />
+    <None Include="..\Release\HackTool.exe" />
     <None Include="..\Release\HijackDll.dll" />
     <None Include="..\Release\MyHookDll.dll" />
     <None Include="res\HackTool.rc2" />

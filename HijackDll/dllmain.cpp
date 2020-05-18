@@ -3,6 +3,7 @@
 #include <tchar.h>
 #include <windows.h>
 
+
 // 直接转发DLL函数
 #pragma comment(linker, "/EXPORT:__CreateFrameInfo=vcruntime140dOrg._CreateFrameInfo")
 #pragma comment(linker, "/EXPORT:__CxxThrowException=vcruntime140dOrg._CxxThrowException")
@@ -106,4 +107,3 @@ BOOL APIENTRY DllMain( HMODULE hModule,
     }
     return TRUE;
 }
-

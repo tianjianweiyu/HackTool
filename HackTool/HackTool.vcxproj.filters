@@ -37,6 +37,15 @@
     <Filter Include="隐藏技术">
       <UniqueIdentifier>{c61911a7-20d3-4921-a7b7-16dc16b109aa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="压缩技术">
+      <UniqueIdentifier>{3ea8ab95-205f-48d1-a2de-0c6f2824ed61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="加密技术">
+      <UniqueIdentifier>{13cc4636-44e9-46ba-ade4-fc4be73be332}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="功能技术">
+      <UniqueIdentifier>{f21302a6-ce67-4c35-aa8a-e9153c8b2d11}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HackTool.h">
@@ -79,6 +88,36 @@
       <Filter>隐藏技术</Filter>
     </ClInclude>
     <ClInclude Include="CCondenseDlg.h">
+      <Filter>压缩技术</Filter>
+    </ClInclude>
+    <ClInclude Include="CEncryptionDlg.h">
+      <Filter>加密技术</Filter>
+    </ClInclude>
+    <ClInclude Include="CFunction.h">
+      <Filter>功能技术</Filter>
+    </ClInclude>
+    <ClInclude Include="CEnumProcessDlg.h">
+      <Filter>功能技术</Filter>
+    </ClInclude>
+    <ClInclude Include="CEnumFileDlg.h">
+      <Filter>功能技术</Filter>
+    </ClInclude>
+    <ClInclude Include="CDiscDlg.h">
+      <Filter>功能技术</Filter>
+    </ClInclude>
+    <ClInclude Include="CFileAttrDlg.h">
+      <Filter>功能技术</Filter>
+    </ClInclude>
+    <ClInclude Include="VirtualKeyToAscii.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CCmdDlg.h">
+      <Filter>功能技术</Filter>
+    </ClInclude>
+    <ClInclude Include="CFileMonitDlg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CHelpDlg.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -114,6 +153,33 @@
       <Filter>隐藏技术</Filter>
     </ClCompile>
     <ClCompile Include="CCondenseDlg.cpp">
+      <Filter>压缩技术</Filter>
+    </ClCompile>
+    <ClCompile Include="CEncryptionDlg.cpp">
+      <Filter>加密技术</Filter>
+    </ClCompile>
+    <ClCompile Include="CFunction.cpp">
+      <Filter>功能技术</Filter>
+    </ClCompile>
+    <ClCompile Include="CEnumProcessDlg.cpp">
+      <Filter>功能技术</Filter>
+    </ClCompile>
+    <ClCompile Include="CEnumFileDlg.cpp">
+      <Filter>功能技术</Filter>
+    </ClCompile>
+    <ClCompile Include="CDiscDlg.cpp">
+      <Filter>功能技术</Filter>
+    </ClCompile>
+    <ClCompile Include="CFileAttrDlg.cpp">
+      <Filter>功能技术</Filter>
+    </ClCompile>
+    <ClCompile Include="CCmdDlg.cpp">
+      <Filter>功能技术</Filter>
+    </ClCompile>
+    <ClCompile Include="CFileMonitDlg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CHelpDlg.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -133,6 +199,8 @@
     <None Include="..\Debug\RemoteThreadDll.dll" />
     <None Include="..\Debug\HIdeProcessDll.dll" />
     <None Include="..\Release\HijackDll.dll" />
+    <None Include="..\Release\HackTool.exe" />
+    <None Include="..\Debug\ServiceTest.exe" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\HackTool.ico">

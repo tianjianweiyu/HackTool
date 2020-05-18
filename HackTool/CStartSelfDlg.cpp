@@ -49,6 +49,8 @@ void CStartSelfDlg::OnBnClickedButton1()
 {
 	// TODO: 在此添加控件通知处理程序代码
 
+	UpdateData(TRUE);
+
 	//检测是否为exe
 	LPTSTR pszExtension = PathFindExtension(m_Edit_FilePath);
 	if (lstrcmp(pszExtension, L".exe") != 0)
@@ -143,6 +145,8 @@ void CStartSelfDlg::OnBnClickedButton2()
 {
 	// TODO: 在此添加控件通知处理程序代码
 
+	UpdateData(TRUE);
+
 	//检测是否为exe
 	LPTSTR pszExtension = PathFindExtension(m_Edit_FilePath);
 	if (lstrcmp(pszExtension, L".exe") != 0)
@@ -227,6 +231,8 @@ void CStartSelfDlg::OnBnClickedButton3()
 {
 	// TODO: 在此添加控件通知处理程序代码
 
+	UpdateData(TRUE);
+
 	//检测是否为exe
 	LPTSTR pszExtension = PathFindExtension(m_Edit_FilePath);
 	if (lstrcmp(pszExtension, L".exe") != 0)
@@ -265,6 +271,8 @@ void CStartSelfDlg::OnBnClickedButton3()
 void CStartSelfDlg::OnBnClickedButton4()
 {
 	// TODO: 在此添加控件通知处理程序代码
+
+	UpdateData(TRUE);
 
 	//检测是否为exe
 	LPTSTR pszExtension = PathFindExtension(m_Edit_FilePath);

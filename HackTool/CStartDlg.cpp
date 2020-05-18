@@ -9,6 +9,12 @@
 
 //定义DllMain函数指针
 typedef BOOL(__stdcall *typedef_DllMain)(HINSTANCE hInstance, DWORD dwReson, LPVOID lpReserced);
+typedef int (WINAPI* typedef_wWinMain)(
+	_In_ HINSTANCE hInstance,
+	_In_opt_ HINSTANCE hPrevInstance,
+	_In_ LPWSTR lpCmdLine,
+	_In_ int nShowCmd
+);
 
 // CStart 对话框
 
@@ -219,7 +225,7 @@ void CStartDlg::OnBnClickedButton2()
 {
 	// TODO: 在此添加控件通知处理程序代码
 
-	HANDLE hMmRes = NULL;
+	LPVOID hMmRes = NULL;
 	BOOL IsExe = TRUE;
 	//获取下拉框选择的索引
 	int index = m_Combo_Start.GetCurSel();
@@ -235,7 +241,7 @@ void CStartDlg::OnBnClickedButton2()
 	case 1:
 	{
 		//加载资源到内存(.exe)
-		//hMmRes = LoadMyResource(IDR_MYRES4, (char*)L"MYRES");
+		hMmRes = LoadMyResource(IDR_MYRES6, (char*)L"MYRES");
 		break;
 	}
 	}
@@ -259,31 +265,21 @@ LPVOID CStartDlg::MmLoadLibrary(LPVOID lpData,BOOL IsExe)
 	}
 	// 将申请的空间的数据全部置0
 	RtlZeroMemory(lpBaseAddress, dwSizeOfImage);
-	//修改页属性, 统一设置成属性PAGE_EXECUTE_READWRITE
-	DWORD dwOldProtect = 0;
-	if (FALSE == VirtualProtect(lpBaseAddress,
-		dwSizeOfImage, PAGE_EXECUTE_READWRITE, &dwOldProtect))
-	{
-		MessageBox(L"修改页属性失败!");
-		return NULL;
-	}
+
 	// 将内存DLL数据按映像对齐大小（SectionAlignment）映射到刚刚申请的内存中
 	if (FALSE == MmMapFile(lpData, lpBaseAddress))
 	{
 		MessageBox(L"区段映射到内存失败!");
 		return NULL;
 	}
-	//获取Dos头
-	PIMAGE_DOS_HEADER pDosHeader = (PIMAGE_DOS_HEADER)lpBaseAddress;
-	//获取NT头
-	PIMAGE_NT_HEADERS pNtHeader = (PIMAGE_NT_HEADERS)((DWORD)pDosHeader + pDosHeader->e_lfanew);
-	DWORD Main = (DWORD)lpBaseAddress + pNtHeader->OptionalHeader.AddressOfEntryPoint;
+
 	// 修改PE文件的重定位表信息
 	if (FALSE == DoRelocationTable(lpBaseAddress))
 	{
 		MessageBox(L"修复重定位失败!");
 		return NULL;
 	}
+
 	// 填写PE文件的导入表信息
 	if (FALSE == DoImportTable(lpBaseAddress))
 	{
@@ -472,7 +468,7 @@ BOOL CStartDlg::DoImportTable(LPVOID lpBaseAddress)
 			if (pIat->u1.Ordinal & 0x80000000)
 			{
 				//获取函数地址
-				pFuncAddress = GetProcAddress(hDll, (LPCSTR)(pIat->u1.Ordinal & 0x80000000));
+				pFuncAddress = GetProcAddress(hDll, (LPCSTR)(pIat->u1.Ordinal & 0x7FFFFFFF));
 
 			}
 				//名称导入
@@ -510,6 +506,7 @@ BOOL CStartDlg::CallDllMain(LPVOID lpBaseAddress,BOOL IsExe)
 {
 	//定义函数指针变量
 	typedef_DllMain DllMain = NULL;
+	typedef_wWinMain MyWinMain = NULL;
 
 	//获取Dos头
 	PIMAGE_DOS_HEADER pDosHeader = (PIMAGE_DOS_HEADER)lpBaseAddress;
@@ -520,11 +517,9 @@ BOOL CStartDlg::CallDllMain(LPVOID lpBaseAddress,BOOL IsExe)
 	//如果是exe文件
 	if (IsExe)
 	{
-		LPVOID  Main = (LPVOID)((DWORD)pDosHeader + pNtHeader->OptionalHeader.AddressOfEntryPoint);
-		__asm {
-			mov eax, Main;
-			call eax;
-		}
+		MessageBox(_T("有问题，待解决"));
+		//MyWinMain = (typedef_wWinMain)((DWORD)pDosHeader + pNtHeader->OptionalHeader.AddressOfEntryPoint+0xF8D);
+		//bRet = MyWinMain((HINSTANCE)lpBaseAddress, NULL, NULL, SW_SHOWNORMAL);
 	}
 	//dll 文件
 	else {
@@ -537,7 +532,7 @@ BOOL CStartDlg::CallDllMain(LPVOID lpBaseAddress,BOOL IsExe)
 }
 
 //加载资源到内存
-HANDLE CStartDlg::LoadMyResource(UINT uiResourceName, char* lpszResourceType)
+LPVOID CStartDlg::LoadMyResource(UINT uiResourceName, char* lpszResourceType)
 {
 	//获取指定模块里的资源
 	HRSRC hRsrc = FindResource(GetModuleHandle(NULL), MAKEINTRESOURCE(uiResourceName), (LPCWSTR)lpszResourceType);
@@ -567,5 +562,5 @@ HANDLE CStartDlg::LoadMyResource(UINT uiResourceName, char* lpszResourceType)
 		MessageBox(L"锁定资源失败!");
 		return FALSE;
 	}
-	return hGlobal;
+	return lpVoid;
 }

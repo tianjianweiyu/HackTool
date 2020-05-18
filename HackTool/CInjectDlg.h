@@ -22,13 +22,14 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	INT m_btnRadio;
-	afx_msg void OnBnClickedButton1();		//开始注入按钮
 	CString m_Edit_DllName;
+	CString m_Edit_ProcName;
+	HMODULE m_hDll;		//要注入的Dll的加载基址
+
+	afx_msg void OnBnClickedButton1();		//开始注入按钮	
 	afx_msg void OnDropFiles(HDROP hDropInfo);		//响应拖拽文件
 	afx_msg void OnBnClickedRadio1();	//响应单选框按钮点击事件-3个按钮共用一个处理函数
-	CString m_Edit_ProcName;
 	virtual BOOL OnInitDialog();
-	HMODULE m_hDll;		//要注入的Dll的加载基址
 	afx_msg void OnEnSetfocusEdit2();	//响应进程名/ID编辑框获取焦点
 	afx_msg void OnEnSetfocusEdit1();	//响应DLL路径编辑框获取焦点
 

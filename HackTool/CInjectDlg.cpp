@@ -54,6 +54,9 @@ void CInjectDlg::OnBnClickedButton1()
 {
 	// TODO: 在此添加控件通知处理程序代码
 
+	//获取注入的方式
+	UpdateData(TRUE);
+
 	//检测是否为dll
 	LPTSTR pszExtension = PathFindExtension(m_Edit_DllName);
 	if (lstrcmp(pszExtension, L".dll") != 0)
@@ -69,8 +72,6 @@ void CInjectDlg::OnBnClickedButton1()
 		return;
 	}
 
-	//获取注入的方式
-	UpdateData(TRUE);
 	//根据注入的方式不同选择不同的方法进行注入
 	switch (m_btnRadio)
 	{

@@ -114,10 +114,10 @@ void __stdcall ServiceCtrlHandle(DWORD dwOperateCode)
 void DoTask()
 {
 	//要自启动程序的路径
-	char lpszFileName[MAX_PATH] = "C:\\Users\\15pb-win7\\Desktop\\HackTool.exe";
+	//char lpszFileName[MAX_PATH] = "C:\\Users\\15pb-win7\\Desktop\\HackTool.exe";
 	//自己的代码写在这里
-	BOOL bRet = CreateUserProcess(lpszFileName);
-	//printf("这里是服务控制程序！");
+	//BOOL bRet = CreateUserProcess(lpszFileName);
+	printf("这里是服务控制程序！");
 	//system("pause");
 }
 
