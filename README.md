@@ -6,13 +6,13 @@
 
 用MFC写的  界面有点low 不要在意这些细节。
 
-![image-20200519100257414](../AppData/Roaming/Typora/typora-user-images/image-20200519100257414.png)
+![image-20200519100257414](/image/1.png)
 
 ## 代码视图
 
 代码的话放一个大概的类视图 详细的就不贴了实在是太多。
 
-![image-20200519100445573](../AppData/Roaming/Typora/typora-user-images/image-20200519100445573.png)
+![image-20200519100445573](/image/2.png)
 
 ## 功能介绍
 
@@ -20,7 +20,7 @@
 
 ### 基础技术
 
-![image-20200519100509290](../AppData/Roaming/Typora/typora-user-images/image-20200519100509290.png)
+![image-20200519100509290](/image/3.png)
 
 #### 防双开
 
@@ -34,7 +34,7 @@
 
 ### 注入技术
 
-![image-20200519100752538](../AppData/Roaming/Typora/typora-user-images/image-20200519100752538.png)
+![image-20200519100752538](/image/4.png)
 
 #### 全局钩子注入
 
@@ -64,7 +64,7 @@
 
 ### 启动技术
 
-![image-20200519101529099](../AppData/Roaming/Typora/typora-user-images/image-20200519101529099.png)
+![image-20200519101529099](/image/5.png)
 
 #### 三种方式创建进程
 
@@ -78,7 +78,7 @@
 
 ### 自启动技术
 
-![image-20200519102216475](../AppData/Roaming/Typora/typora-user-images/image-20200519102216475.png)
+![image-20200519102216475](/image/6.png)
 
 #### 注册表
 
@@ -117,7 +117,7 @@
 
 ### 提权技术
 
-![image-20200519104155255](../AppData/Roaming/Typora/typora-user-images/image-20200519104155255.png)
+![image-20200519104155255](/image/7.png)
 
 #### 提升为Debug权限
 
@@ -133,7 +133,7 @@
 
 ### 隐藏技术
 
-![image-20200519104301022](../AppData/Roaming/Typora/typora-user-images/image-20200519104301022.png)
+![image-20200519104301022](/image/8.png)
 
 #### 进程伪装
 
@@ -168,7 +168,7 @@
 
 ### 压缩技术
 
-![image-20200519105922541](../AppData/Roaming/Typora/typora-user-images/image-20200519105922541.png)
+![image-20200519105922541](/image/9.png)
 
 #### 数据解压缩
 
@@ -184,7 +184,7 @@
 
 ### 加密技术
 
-![image-20200519110417306](../AppData/Roaming/Typora/typora-user-images/image-20200519110417306.png)
+![image-20200519110417306](/image/10.png)
 
 #### HASH
 
@@ -204,7 +204,7 @@
 
 ### 功能技术
 
-![image-20200519110626252](../AppData/Roaming/Typora/typora-user-images/image-20200519110626252.png)
+![image-20200519110626252](/image/11.png)
 
 #### 进程遍历
 

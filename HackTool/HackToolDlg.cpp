@@ -133,7 +133,7 @@ BOOL CHackToolDlg::OnInitDialog()
 		MessageBox(_T("请勿双开本程序，即将退出"));
 		exit(0);//正常退出
 	}
-
+	
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 
